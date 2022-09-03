@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "spring.elasticsearch.port",
+      "type": "java.lang.String",
+      "description": "Description for spring.elasticsearch.port."
+    },
+    {
+      "name": "spring.elasticsearch.host",
+      "type": "java.lang.String",
+      "description": "Description for spring.elasticsearch.host."
+    },
+    {
+      "name": "spring.elasticsearch.host",
+      "type": "java.lang.String",
+      "description": "Description for spring.elasticsearch.host."
+    }
+  ] }

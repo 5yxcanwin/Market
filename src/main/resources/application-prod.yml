@@ -1,0 +1,20 @@
+server:
+  port: 443
+  ssl:
+    key-store: classpath:market_ssl_top.pfx
+    key-store-password: PHn13g3k
+    key-store-type: PKCS12
+
+config:
+  # 若在Linux下，请使用该地址
+  picUrl: /usr/local/wxapp/images/
+  expire-time: 1800000
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/market?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&useAffectedRows=true
+
+  #  单机redis配置
+  redis:
+    host: 127.0.0.1

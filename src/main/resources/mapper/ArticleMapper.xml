@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hafa.market.mapper.ArticleMapper">
+    <resultMap id="ArticleDtoMap" type="com.hafa.market.dto.ArticleDto">
+        <id column="article_id" property="articleId"/>
+        <result column="article_pic_num" property="articlePicNum"/>
+        <result column="article_price" property="articlePrice"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_description" property="articleDescription"/>
+        <result column="article_view_count" property="articleViewCount"/>
+    </resultMap>
+
+    <select id="queryPicNum" parameterType="long" resultType="com.hafa.market.pojo.Article">
+        SELECT *
+        FROM market.article
+        WHERE article_id = #{articleId}
+        FOR UPDATE
+    </select>
+    <select id="queryAllArticleList" resultMap="ArticleDtoMap">
+        SELECT *
+        FROM market.article
+        <where>
+            article_status = 0
+            <if test="articleRegion!=null and articleRegion!=''">
+                AND article_region = #{articleRegion}
+            </if>
+            <if test="articleDistribution!=null and articleDistribution!=''">
+                AND article_distribution = #{articleDistribution}
+            </if>
+            <if test="articleAttrition!=null and articleAttrition!=''">
+                AND article_attrition = #{articleAttrition}
+            </if>
+            <if test="lowPrice!=null and highPrice!=null">
+                AND article_price BETWEEN #{lowPrice} AND #{highPrice}
+            </if>
+            <if test="lowPrice==null and highPrice!=null">
+                AND article_price &gt; #{highPrice}
+            </if>
+            <if test="info!=null and info!=''">
+                AND CONCAT(article_title,article_description)
+                LIKE CONCAT('%', #{info}, '%')
+            </if>
+            ORDER BY article_id DESC
+        </where>
+    </select>
+
+    <select id="selectSoldArticle" resultMap="ArticleDtoMap">
+        SELECT *
+        FROM article
+        WHERE article_user_id = #{userId}
+        AND article_status = #{articleStatus}
+        ORDER BY article_create_time DESC
+    </select>
+
+    <select id="selectMyWantArticle" resultMap="ArticleDtoMap">
+        SELECT *
+        FROM article JOIN purchase
+        ON purchase_article_id = article_id
+        WHERE purchase_user_id = #{userId}
+        ORDER BY article_id DESC
+    </select>
+
+</mapper>

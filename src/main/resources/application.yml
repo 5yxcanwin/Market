@@ -1,0 +1,82 @@
+# 端口号配置
+server:
+  servlet:
+    context-path: /market
+  tomcat:
+    # 设置tomcat的最大吞吐量，否则tomcat会先于Controller触发异常，无法在Controller中捕获
+    max-swallow-size: 100MB
+
+config:
+  wechat:
+    appid: wx23e046d6ed4529f7
+    secret: 3a39ca75cd6ea1f21dbbde93441bc794
+
+spring:
+  profiles:
+    # 选择的运行环境
+    active: dev
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    # Druid连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+
+  #  单机redis配置
+  redis:
+    port: 6379
+    database: 0
+    password: 123456
+    # Redis连接池设置
+    lettuce:
+      pool:
+        enabled: true
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 1000
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 5
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+  servlet:
+    multipart:
+      # 最大单个文件上传限制
+      max-file-size: 5MB
+      # 一次上传文件大小
+      max-request-size: 45MB
+
+  # 单机elasticsearch配置
+  elasticsearch:
+    rest:
+      uris: 192.168.121.134:9200
+
+  # 单机rabbitmq配置
+  rabbitmq:
+    port: 5672
+    username: 5yxcanwin
+    password: 123456
+    connection-timeout: 60000
+
+# 日志配置
+logging:
+  config: classpath:config/log4j2.xml
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+
+
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+

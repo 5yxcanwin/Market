@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+config:
+  # 若在Windows下，请使用该地址
+  picUrl: E:\Images\wxapp\images\
+  expire-time: 1800000
+
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://192.168.121.134:3306/market?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&useAffectedRows=true
+
+  #  单机redis配置
+  redis:
+    host: 192.168.121.134
+
+  rabbitmq:
+    host: 192.168.121.134
+    virtual-host: /
+
